@@ -58,7 +58,7 @@ reboot
 
 # Define online repositories for packages to install
 url --url http://centos.mirrors.hoobly.com/7.1.1503/os/x86_64/
-#repo --name=epel --baseurl=http://dl.fedoraproject.org/pub/epel/7/x86_64/
+repo --name=epel --baseurl=http://dl.fedoraproject.org/pub/epel/7/x86_64/
 repo --name=updates --baseurl=http://centos.mirrors.hoobly.com/7.1.1503/updates/x86_64/
 
 # Define the manifest of rpm packages to install
