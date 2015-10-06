@@ -75,6 +75,7 @@ repo --name=updates --baseurl=http://centos.mirrors.hoobly.com/7.1.1503/updates/
 	htop
 	perl
 	net-tools
+	epel-release
 %end
 
 %post
