@@ -88,4 +88,10 @@ repo --name=updates --baseurl=http://centos.mirrors.hoobly.com/7.1.1503/updates/
   printf "\nDisabling TTY so that sudo can be called without users being logged in a text only console\n"
   sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
 
+  printf "\nInstalling the GNOME Desktop\n"
+  yum -y groupinstall "gnome-desktop" "graphical-admin-tools"
+
+  printf "\nEnabling the GUI on system start\n"
+  systemctl set-default graphical.target
+  
 %end
