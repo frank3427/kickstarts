@@ -28,8 +28,8 @@ selinux --disabled
 # Bootloader options
 bootloader --location=mbr --driveorder=sda --append="crashkernel=auto rhgb quiet"
 
-# Do not configure X
-skipx
+# Accept EULA
+eula --agreed
 
 # Do not use the GUI
 text
@@ -88,10 +88,20 @@ repo --name=updates --baseurl=http://centos.mirrors.hoobly.com/7.1.1503/updates/
   printf "\nDisabling TTY so that sudo can be called without users being logged in a text only console\n"
   sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
 
+  printf "\nCreating Remote User\n"
+  /usr/sbin/groupadd -g 501 remoteuser
+  /usr/sbin/useradd remoteuser -u 501 -g remoteuser -G wheel
+  echo "remoteuser"|passwd --stdin Passw0rd!
+  echo "remoteuser        ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers.d/remoteuser
+  chmod 0440 /etc/sudoers.d/remoteuser
+
   printf "\nInstalling the GNOME Desktop\n"
   yum -y groupinstall "gnome-desktop" "graphical-admin-tools"
 
   printf "\nEnabling the GUI on system start\n"
-  systemctl set-default graphical.target
-  
+  systemctl set-default graphical.target --force
+
+  printf "\nDisabling initial set up prompt
+  yum -y remove initial-setup
+ 
 %end
